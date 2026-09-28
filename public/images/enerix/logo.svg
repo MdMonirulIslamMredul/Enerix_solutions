@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80" width="100%" height="100%">
+    <defs>
+        <linearGradient id="enerixBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#0066d6" />
+            <stop offset="100%" stop-color="#0099ff" />
+        </linearGradient>
+        <linearGradient id="enerixCyan" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#00c6ff" />
+            <stop offset="100%" stop-color="#0072ce" />
+        </linearGradient>
+    </defs>
+    
+    <!-- Logo Text: Enerix -->
+    <g transform="translate(10, 50)">
+        <text font-family="'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif" font-size="44" font-weight="900" fill="url(#enerixBlue)" letter-spacing="-1.5">
+            Eneri<tspan fill="url(#enerixCyan)">x</tspan>
+        </text>
+        <!-- Stylized tech power bolt / accent on the X -->
+        <polygon points="135,-32 142,-22 137,-22 143,-12 133,-20 138,-20" fill="#00c6ff" />
+    </g>
+
+    <!-- Subtitle: SOLUTIONS -->
+    <g transform="translate(14, 68)">
+        <text font-family="'Plus Jakarta Sans', 'Inter', sans-serif" font-size="11" font-weight="700" fill="#1e293b" letter-spacing="7">
+            SOLUTIONS
+        </text>
+    </g>
+</svg>
