@@ -36,7 +36,11 @@ class ContactController extends Controller
             'phone' => ['nullable', 'string', 'max:60'],
             'subject' => ['nullable', 'string', 'max:255'],
             'message' => ['required', 'string', 'max:3000'],
+            'source' => ['nullable', 'string', 'in:contact,quote'],
         ]);
+
+        $data['source'] = $request->input('source', 'contact');
+        $data['status'] = 'not_connected';
 
         Contact::create($data);
 

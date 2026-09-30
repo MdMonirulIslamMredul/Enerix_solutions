@@ -36,6 +36,7 @@
 
                         <form action="{{ route('contact.store') }}" method="POST">
                             @csrf
+                            <input type="hidden" name="source" value="{{ ($isQuote ?? false) ? 'quote' : 'contact' }}">
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <label class="form-label fw-semibold small">Full Name <span class="text-danger">*</span></label>
