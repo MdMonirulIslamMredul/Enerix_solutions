@@ -1,6 +1,7 @@
 @php
     $footerSetting = $settings ?? null;
     $social = $footerSetting?->social_links ?? [];
+    $footerSolutions = $footerSolutions ?? \App\Models\Service::where('status', true)->orderBy('sort_order')->take(6)->get();
 @endphp
 
 <!-- Enerix Modern Dark Navy Footer -->
@@ -22,14 +23,21 @@
             </div>
 
             <!-- Solutions Column -->
-            <div class="col-lg-2 col-md-3 col-6">
+            <div class="col-xl-2 col-lg-3 col-md-3 col-6">
                 <h6 class="text-white fw-bold mb-3 text-uppercase" style="font-size: 0.9rem; letter-spacing: 0.5px;">Solutions</h6>
                 <ul class="list-unstyled d-flex flex-column gap-2 mb-0">
-                    <li><a href="{{ route('solutions.index') }}" class="footer-link">Solar Energy</a></li>
-                    <li><a href="{{ route('solutions.index') }}" class="footer-link">Engineering</a></li>
-                    <li><a href="{{ route('solutions.index') }}" class="footer-link">Electrical</a></li>
-                    <li><a href="{{ route('solutions.index') }}" class="footer-link">IT Solutions</a></li>
-                    <li><a href="{{ route('solutions.index') }}" class="footer-link">Security & Surveillance</a></li>
+                    @forelse($footerSolutions as $solution)
+                        <li>
+                            <a href="{{ route('solutions.show', $solution->slug) }}" class="footer-link">
+                                {{ $solution->title }}
+                            </a>
+                        </li>
+                    @empty
+                        <li><a href="{{ route('solutions.index') }}" class="footer-link">Solar Energy</a></li>
+                        <li><a href="{{ route('solutions.index') }}" class="footer-link">Engineering</a></li>
+                        <li><a href="{{ route('solutions.index') }}" class="footer-link">Electrical</a></li>
+                        <li><a href="{{ route('solutions.index') }}" class="footer-link">IT Solutions</a></li>
+                    @endforelse
                 </ul>
             </div>
 

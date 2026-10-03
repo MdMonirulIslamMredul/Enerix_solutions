@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Service;
 use App\Models\Setting;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\View;
@@ -24,5 +25,12 @@ class AppServiceProvider extends ServiceProvider
     {
         Paginator::useBootstrapFive();
         View::share('settings', Setting::first());
+
+        View::composer('frontend.partials.footer', function ($view) {
+            $view->with('footerSolutions', Service::where('status', true)
+                ->orderBy('sort_order')
+                ->take(6)
+                ->get());
+        });
     }
 }
