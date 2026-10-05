@@ -32,20 +32,22 @@
                     @endphp
                     <div class="col" data-aos="fade-up" data-aos-delay="{{ $loop->iteration * 80 }}">
                         <div class="solution-card h-100 shadow-sm border-0">
-                            <!-- Image + Icon Badge -->
+                            <!-- Image Banner -->
                             <div class="solution-card-img-wrapper" style="height: 200px;">
                                 @if($service->image)
                                     <img src="{{ asset('storage/' . $service->image) }}" alt="{{ $service->title }}">
                                 @else
                                     <img src="{{ asset('images/enerix/solution_solar.jpg') }}" alt="{{ $service->title }}">
                                 @endif
-                                <div class="solution-icon-badge" style="width: 48px; height: 48px; font-size: 1.35rem; bottom: -18px;">
-                                    <i class="bi {{ $service->icon ?? 'bi-sun-fill' }}"></i>
-                                </div>
                             </div>
 
                             <!-- Content -->
-                            <div class="solution-card-body pt-4 p-4">
+                            <div class="solution-card-body p-4 pt-0">
+                                <!-- Floating Icon Badge -->
+                                <div class="solution-icon-badge mb-3">
+                                    <i class="bi {{ $service->icon ?? 'bi-sun-fill' }}"></i>
+                                </div>
+
                                 <h3 class="solution-title fs-5 mb-2">
                                     <a href="{{ route('solutions.show', $service->slug) }}" class="text-decoration-none text-dark">
                                         {{ $service->title }}
