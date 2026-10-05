@@ -23,8 +23,13 @@
             @endforeach
         </select>
     </div>
-    <div class="col-md-4"><label class="form-label">Price</label><input name="price" type="number" step="0.01"
-            class="form-control" value="{{ old('price', $product->price ?? '') }}"></div>
+    <div class="col-md-4"><label class="form-label">Price (BDT ৳)</label>
+        <div class="input-group">
+            <span class="input-group-text bg-light fw-bold text-primary">৳</span>
+            <input name="price" type="number" step="any" class="form-control" placeholder="e.g. 25000"
+                value="{{ old('price', $product->price ?? '') }}">
+        </div>
+    </div>
     <div class="col-md-4"><label class="form-label">Sort Order</label><input name="sort_order" type="number"
             class="form-control" value="{{ old('sort_order', $product->sort_order ?? 0) }}"></div>
     <div class="col-md-2 form-check mt-4"><input class="form-check-input" type="checkbox" name="is_featured"

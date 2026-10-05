@@ -11,7 +11,7 @@
                     <tr>
                         <th>Title</th>
                         <th>Image</th>
-                        <th>Price</th>
+                        <th>Price (BDT)</th>
                         <th>Status</th>
                         <th></th>
                     </tr>
@@ -29,7 +29,13 @@
                                 @endif
                             </td>
 
-                            <td>{{ $product->price }}</td>
+                            <td>
+                                @if($product->price)
+                                    <strong class="text-primary">৳ {{ number_format($product->price, $product->price == intval($product->price) ? 0 : 2) }}</strong>
+                                @else
+                                    <span class="text-muted small">RFQ / Call</span>
+                                @endif
+                            </td>
                             <td>{{ $product->status ? 'Active' : 'Inactive' }}</td>
                             <td class="text-end"><a href="{{ route('admin.products.edit', $product) }}"
                                     class="btn btn-sm btn-outline-primary">Edit</a>
