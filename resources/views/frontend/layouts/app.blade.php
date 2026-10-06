@@ -45,6 +45,10 @@
             --page-gradient: linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
         }
 
+        html {
+            overflow-x: hidden;
+        }
+
         body {
             font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             color: var(--ink);
@@ -78,6 +82,55 @@
             background: var(--primary-color);
             border-radius: 2px;
         }
+
+        /* Enerix Navbar Dropdown */
+        .enerix-dropdown-toggle::after {
+            display: none; /* hide default Bootstrap caret — we use bi-chevron-down */
+        }
+
+        .enerix-dropdown-menu {
+            border-radius: 12px;
+            padding: 6px;
+            min-width: 200px;
+            margin-top: 8px;
+            background: #ffffff;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1) !important;
+            border: 1px solid rgba(0, 0, 0, 0.06) !important;
+            animation: dropdownFadeIn 0.18s ease;
+        }
+
+        @keyframes dropdownFadeIn {
+            from { opacity: 0; transform: translateY(-6px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .enerix-dropdown-item {
+            border-radius: 8px;
+            padding: 9px 14px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #1e293b;
+            display: flex;
+            align-items: center;
+            transition: background 0.15s ease, color 0.15s ease;
+        }
+
+        .enerix-dropdown-item i {
+            color: var(--primary-color);
+            font-size: 1rem;
+        }
+
+        .enerix-dropdown-item:hover,
+        .enerix-dropdown-item:focus {
+            background: #f0f7ff;
+            color: var(--primary-color);
+        }
+
+        .enerix-dropdown-item.active {
+            background: #e8f3ff;
+            color: var(--primary-color);
+        }
+
 
         .btn-quote-pill {
             background-color: var(--primary-color);
@@ -186,24 +239,25 @@
         /* Solutions Cards */
         .solution-card {
             background: #ffffff;
-            border: 1px solid rgba(15, 23, 42, 0.08);
+            border: 1px solid rgba(15, 23, 42, 0.09);
             border-radius: 16px;
             overflow: hidden;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             height: 100%;
             display: flex;
             flex-direction: column;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
         }
 
         .solution-card:hover {
             transform: translateY(-6px);
-            box-shadow: 0 20px 40px rgba(0, 114, 206, 0.12);
-            border-color: rgba(0, 114, 206, 0.2);
+            box-shadow: 0 18px 38px rgba(0, 114, 206, 0.14);
+            border-color: rgba(0, 114, 206, 0.25);
         }
 
         .solution-card-img-wrapper {
             position: relative;
-            height: 140px;
+            height: 135px;
             overflow: hidden;
         }
 
@@ -211,51 +265,94 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.4s ease;
+            transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.25, 1);
         }
 
         .solution-card:hover .solution-card-img-wrapper img {
             transform: scale(1.08);
         }
 
-        .solution-icon-badge {
-            width: 44px;
-            height: 44px;
-            background: var(--primary-color);
-            color: #ffffff;
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.25rem;
-            border: 3px solid #ffffff;
-            box-shadow: 0 4px 12px rgba(0, 114, 206, 0.35);
-            position: absolute;
-            bottom: -16px;
-            left: 18px;
-            z-index: 2;
-        }
-
         .solution-card-body {
-            padding: 1.5rem 1.1rem 1.1rem 1.1rem;
+            padding: 0 1.15rem 1.25rem 1.15rem;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
         }
 
+        /* Header Row with Icon Badge & Title */
+        .solution-header-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 12px;
+            position: relative;
+            z-index: 3;
+        }
+
+        /* Full Size Circular Icon Badge */
+        .solution-icon-badge {
+            width: 58px;
+            height: 58px;
+            min-width: 58px;
+            margin-top: -29px; /* Floats ONLY the circular badge up over the image seam */
+            background: linear-gradient(135deg, #0080e6 0%, #0060b8 100%);
+            color: #ffffff;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 3.5px solid #ffffff;
+            box-shadow: 0 6px 16px rgba(0, 114, 206, 0.32);
+            transition: all 0.3s cubic-bezier(0.2, 0.8, 0.25, 1);
+            flex-shrink: 0;
+            position: relative;
+            z-index: 5;
+        }
+
+        .solution-card:hover .solution-icon-badge {
+            transform: scale(1.06);
+            box-shadow: 0 8px 22px rgba(0, 114, 206, 0.45);
+        }
+
+        /* Full Size Icon Inside Badge */
+        .solution-icon-badge i {
+            font-size: 1.75rem;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .solution-icon-badge svg {
+            width: 32px;
+            height: 32px;
+            display: block;
+        }
+
         .solution-title {
-            font-size: 1.05rem;
+            font-size: 0.98rem;
             font-weight: 800;
-            color: #0f172a;
-            line-height: 1.35;
-            margin-bottom: 0.75rem;
+            color: #07132b;
+            line-height: 1.25;
+            margin-top: 8px; /* Lowers down the title onto the clean white card background */
+            margin-bottom: 0;
+        }
+
+        .solution-title a {
+            color: #07132b;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .solution-title a:hover {
+            color: var(--primary-color, #0072ce);
         }
 
         .solution-bullet-list {
             list-style: none;
             padding: 0;
             margin: 0;
-            font-size: 0.84rem;
+            font-size: 0.82rem;
             color: #475569;
         }
 
@@ -263,17 +360,17 @@
             position: relative;
             padding-left: 14px;
             margin-bottom: 5px;
-            line-height: 1.3;
+            line-height: 1.35;
         }
 
         .solution-bullet-list li::before {
             content: '•';
-            color: var(--primary-color);
+            color: var(--primary-color, #0072ce);
             font-weight: 900;
             position: absolute;
             left: 0;
             top: -1px;
-            font-size: 1rem;
+            font-size: 1.05rem;
         }
 
         /* Why Enerix Badges */
@@ -414,7 +511,7 @@
             overflow: hidden;
         }
 
-        /* Floating WhatsApp Button */
+        /* Floating WhatsApp Button - Circular FAB */
         .whatsapp-float {
             position: fixed;
             right: 1.5rem;
@@ -423,23 +520,105 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 0.5rem;
-            padding: 0.85rem 1.1rem;
-            border-radius: 999px;
-            background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
-            color: #ffffff;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #25D366;
+            color: #ffffff !important;
             text-decoration: none;
-            box-shadow: 0 12px 32px rgba(37, 211, 102, 0.35);
-            transition: all 0.25s ease;
-            font-weight: 700;
-            font-size: 0.95rem;
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4), 0 4px 10px rgba(0, 0, 0, 0.12);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: whatsapp-pulse 2.8s infinite;
         }
 
-        .whatsapp-float:hover {
-            transform: translateY(-3px) scale(1.02);
-            color: #ffffff;
-            box-shadow: 0 16px 40px rgba(37, 211, 102, 0.45);
+        .whatsapp-float:hover,
+        .whatsapp-float:focus-visible {
+            transform: scale(1.1) translateY(-2px);
+            background-color: #20ba5a;
+            color: #ffffff !important;
+            box-shadow: 0 14px 30px rgba(37, 211, 102, 0.55), 0 6px 14px rgba(0, 0, 0, 0.18);
+            animation: none;
         }
+
+        .whatsapp-float .whatsapp-icon-svg {
+            width: 34px;
+            height: 34px;
+            fill: #ffffff;
+            transition: transform 0.25s ease;
+        }
+
+        .whatsapp-float:hover .whatsapp-icon-svg {
+            transform: scale(1.08);
+        }
+
+        /* Tooltip that slides out smoothly on hover */
+        .whatsapp-float .whatsapp-tooltip {
+            position: absolute;
+            right: calc(100% + 12px);
+            top: 50%;
+            transform: translateY(-50%) translateX(8px);
+            background: #0f172a;
+            color: #ffffff;
+            font-size: 0.82rem;
+            font-weight: 600;
+            white-space: nowrap;
+            padding: 6px 14px;
+            border-radius: 50px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: all 0.25s ease;
+        }
+
+        .whatsapp-float .whatsapp-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -6px;
+            transform: translateY(-50%);
+            border-width: 6px 0 6px 6px;
+            border-style: solid;
+            border-color: transparent transparent transparent #0f172a;
+        }
+
+        .whatsapp-float:hover .whatsapp-tooltip {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(-50%) translateX(0);
+        }
+
+        @keyframes whatsapp-pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.65), 0 10px 25px rgba(37, 211, 102, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 14px rgba(37, 211, 102, 0), 0 10px 25px rgba(37, 211, 102, 0.4);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0), 0 10px 25px rgba(37, 211, 102, 0.4);
+            }
+        }
+
+        @media (max-width: 575px) {
+            .whatsapp-float {
+                right: 1.1rem;
+                bottom: 1.1rem;
+                width: 54px;
+                height: 54px;
+            }
+
+            .whatsapp-float .whatsapp-icon-svg {
+                width: 30px;
+                height: 30px;
+            }
+
+            .whatsapp-float .whatsapp-tooltip {
+                display: none;
+            }
+        }
+        }
+
 
         /* Flash alert floating */
         .flash-alert-floating {
@@ -544,9 +723,11 @@
             $whatsappClean = preg_replace('/\D+/', '', $waRaw);
         @endphp
         @if ($whatsappClean)
-            <a href="https://wa.me/{{ $whatsappClean }}" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Chat with Enerix on WhatsApp">
-                <i class="bi bi-whatsapp fs-5"></i>
-                <span class="d-none d-sm-inline">WhatsApp</span>
+            <a href="https://wa.me/{{ $whatsappClean }}" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp" title="Chat on WhatsApp">
+                <span class="whatsapp-tooltip">Chat with us</span>
+                <svg class="whatsapp-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+                </svg>
             </a>
         @endif
     @endif

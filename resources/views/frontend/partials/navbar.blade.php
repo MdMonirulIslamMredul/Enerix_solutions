@@ -1,6 +1,6 @@
 @php
     $navSetting = $settings ?? null;
-    $currentRoute = request()->route()->getName();
+    $currentRoute = request()->route()?->getName() ?? '';
 @endphp
 
 <!-- Enerix Modern Navbar -->
@@ -28,10 +28,26 @@
                         Home
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link enerix-nav-link {{ request()->routeIs('about') ? 'active' : '' }}" href="{{ route('about') }}">
-                        About Us
+                <li class="nav-item dropdown">
+                    <a class="nav-link enerix-nav-link enerix-dropdown-toggle {{ request()->routeIs('about') || request()->routeIs('team.*') ? 'active' : '' }}"
+                       href="#" id="aboutDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        About Us <i class="bi bi-chevron-down ms-1" style="font-size:0.7rem;"></i>
                     </a>
+                    <ul class="dropdown-menu enerix-dropdown-menu shadow-sm border-0" aria-labelledby="aboutDropdown">
+                        <li>
+                            <a class="dropdown-item enerix-dropdown-item {{ request()->routeIs('about') ? 'active' : '' }}"
+                               href="{{ route('about') }}">
+                                <i class="bi bi-building me-2"></i>About Us
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item enerix-dropdown-item {{ request()->routeIs('team.*') ? 'active' : '' }}"
+                               href="{{ route('team.index') }}">
+                                <i class="bi bi-people me-2"></i>Our Team
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link enerix-nav-link {{ request()->routeIs('solutions.*') || request()->routeIs('services.*') ? 'active' : '' }}" href="{{ route('solutions.index') }}">
