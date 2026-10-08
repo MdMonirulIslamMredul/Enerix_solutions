@@ -236,6 +236,14 @@
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
         }
 
+        /* Optimize fluid container margins on laptops and medium desktops */
+        @media (min-width: 992px) and (max-width: 1399.98px) {
+            .container-fluid.px-lg-5 {
+                padding-left: 1.5rem !important;
+                padding-right: 1.5rem !important;
+            }
+        }
+
         /* Solutions Cards */
         .solution-card {
             background: #ffffff;
@@ -279,6 +287,12 @@
             flex-direction: column;
         }
 
+        @media (min-width: 1200px) and (max-width: 1399.98px) {
+            .solution-card-body {
+                padding: 0 0.75rem 1.1rem 0.75rem;
+            }
+        }
+
         /* Header Row with Icon Badge & Title */
         .solution-header-row {
             display: flex;
@@ -287,6 +301,15 @@
             margin-bottom: 12px;
             position: relative;
             z-index: 3;
+            min-height: 66px; /* Aligns titles and bullet points evenly across cards */
+        }
+
+        @media (min-width: 1200px) and (max-width: 1399.98px) {
+            .solution-header-row {
+                gap: 8px;
+                margin-bottom: 10px;
+                min-height: 58px;
+            }
         }
 
         /* Full Size Circular Icon Badge */
@@ -309,6 +332,17 @@
             z-index: 5;
         }
 
+        @media (min-width: 1200px) and (max-width: 1399.98px) {
+            .solution-icon-badge {
+                width: 44px;
+                height: 44px;
+                min-width: 44px;
+                margin-top: -22px;
+                border-width: 3px;
+                box-shadow: 0 4px 12px rgba(0, 114, 206, 0.28);
+            }
+        }
+
         .solution-card:hover .solution-icon-badge {
             transform: scale(1.06);
             box-shadow: 0 8px 22px rgba(0, 114, 206, 0.45);
@@ -329,6 +363,16 @@
             display: block;
         }
 
+        @media (min-width: 1200px) and (max-width: 1399.98px) {
+            .solution-icon-badge i {
+                font-size: 1.3rem;
+            }
+            .solution-icon-badge svg {
+                width: 22px;
+                height: 22px;
+            }
+        }
+
         .solution-title {
             font-size: 0.98rem;
             font-weight: 800;
@@ -336,6 +380,20 @@
             line-height: 1.25;
             margin-top: 8px; /* Lowers down the title onto the clean white card background */
             margin-bottom: 0;
+            flex: 1;
+            min-width: 0; /* Prevents text overflow and allows proper word wrapping */
+            word-break: normal;
+            overflow-wrap: break-word;
+            hyphens: manual;
+        }
+
+        @media (min-width: 1200px) and (max-width: 1399.98px) {
+            .solution-title {
+                font-size: 0.85rem;
+                line-height: 1.22;
+                margin-top: 3px;
+                letter-spacing: -0.2px;
+            }
         }
 
         .solution-title a {
@@ -356,6 +414,20 @@
             color: #475569;
         }
 
+        @media (min-width: 1200px) and (max-width: 1399.98px) {
+            .solution-bullet-list {
+                font-size: 0.77rem;
+            }
+            .solution-bullet-list li {
+                padding-left: 12px;
+                margin-bottom: 4px;
+                line-height: 1.3;
+            }
+            .solution-bullet-list li::before {
+                font-size: 0.95rem;
+            }
+        }
+
         .solution-bullet-list li {
             position: relative;
             padding-left: 14px;
@@ -373,13 +445,23 @@
             font-size: 1.05rem;
         }
 
-        /* Why Enerix Badges */
+        /* Why Enerix Badges Grid & Badges */
+        .why-badges-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            align-items: start;
+            justify-items: center;
+            width: 100%;
+        }
+
         .why-badge {
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
             color: #ffffff;
+            width: 100%;
         }
 
         .why-badge-icon {
@@ -392,15 +474,24 @@
             align-items: center;
             justify-content: center;
             font-size: 1.4rem;
-            color: var(--accent-color);
+            color: var(--accent-color, #38bdf8);
             margin-bottom: 8px;
             transition: all 0.25s ease;
+        }
+
+        @media (min-width: 1200px) and (max-width: 1399.98px) {
+            .why-badge-icon {
+                width: 42px;
+                height: 42px;
+                font-size: 1.25rem;
+                margin-bottom: 6px;
+            }
         }
 
         .why-badge:hover .why-badge-icon {
             background: rgba(0, 198, 255, 0.2);
             transform: scale(1.08);
-            border-color: var(--accent-color);
+            border-color: var(--accent-color, #38bdf8);
         }
 
         .why-badge-text {
@@ -409,6 +500,51 @@
             line-height: 1.25;
             max-width: 105px;
             color: #e2e8f0;
+            text-align: center;
+            display: block;
+        }
+
+        @media (min-width: 1200px) and (max-width: 1399.98px) {
+            .why-badge-text {
+                font-size: 0.77rem;
+                max-width: 96px;
+                line-height: 1.22;
+            }
+        }
+
+        .why-stats-col {
+            border-top: 1px solid rgba(255, 255, 255, 0.12);
+            padding-top: 1.5rem;
+        }
+
+        @media (min-width: 1200px) {
+            .why-stats-col {
+                border-top: none;
+                padding-top: 0;
+                border-left: 1px solid rgba(255, 255, 255, 0.15);
+                padding-left: 1.5rem;
+            }
+        }
+
+        @media (max-width: 991.98px) {
+            .why-badges-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 18px 12px;
+            }
+        }
+
+        @media (max-width: 575.98px) {
+            .why-badges-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px 10px;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .row-cols-xl-7 > * {
+                flex: 0 0 auto;
+                width: 14.285714%;
+            }
         }
 
         /* Industry Card */

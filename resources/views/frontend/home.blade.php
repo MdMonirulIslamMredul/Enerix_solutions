@@ -555,7 +555,7 @@
             </div>
 
             <!-- 6 Solutions Cards Grid -->
-            <div class="row g-4 row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-6">
+            <div class="row g-3 g-xxl-4 row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-6">
                 @forelse($services as $service)
                     @php
                         $bulletItems = $service->features ?? [];
@@ -675,18 +675,18 @@
         <div class="container-fluid px-lg-5">
             <div class="row align-items-center g-4">
                 <!-- Left Title & Subtitle -->
-                <div class="col-xl-3 col-lg-4 text-center text-lg-start" data-aos="fade-right">
+                <div class="col-12 col-xl-3 text-center text-xl-start" data-aos="fade-right">
                     <h3 class="fw-bold text-white mb-2" style="font-size: 1.65rem;">
                         {{ $setting->why_title ?? 'Why Enerix Solutions?' }}
                     </h3>
-                    <p class="text-secondary-subtle mb-0 small" style="color: #94a3b8; max-width: 320px;">
+                    <p class="text-secondary-subtle mb-0 small mx-auto mx-xl-0" style="color: #94a3b8; max-width: 320px;">
                         {{ $setting->why_subtitle ?? 'Your trusted partner for sustainable, efficient and future-ready solutions.' }}
                     </p>
                 </div>
 
                 <!-- Middle 5 Feature Badges -->
-                <div class="col-xl-6 col-lg-5" data-aos="fade-up">
-                    <div class="d-flex justify-content-around align-items-start flex-wrap gap-3">
+                <div class="col-12 col-xl-6" data-aos="fade-up">
+                    <div class="why-badges-grid">
                         <div class="why-badge">
                             <div class="why-badge-icon"><i class="bi bi-gem"></i></div>
                             <span class="why-badge-text">Integrated Solutions</span>
@@ -715,7 +715,7 @@
                 </div>
 
                 <!-- Right 3 Stats / Counters -->
-                <div class="col-xl-3 col-lg-3 border-start border-secondary ps-xl-4 text-center" data-aos="fade-left">
+                <div class="col-12 col-xl-3 why-stats-col text-center" data-aos="fade-left">
                     <div class="d-flex justify-content-around align-items-center">
                         @forelse($counters as $counter)
                             <div class="counter-stat-box">
@@ -756,7 +756,7 @@
             </div>
 
             <!-- 7 Horizontal Industry Cards -->
-            <div class="row g-3 row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-7">
+            <div class="row g-3 row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-xl-7">
                 @forelse($industries as $industry)
                     <div class="col" data-aos="zoom-in" data-aos-delay="{{ $loop->iteration * 50 }}">
                         <a href="{{ route('industries.show', $industry->slug) }}" class="industry-card">

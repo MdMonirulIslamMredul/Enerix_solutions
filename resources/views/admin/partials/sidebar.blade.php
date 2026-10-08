@@ -407,7 +407,7 @@
                 <a href="{{ route('admin.settings.edit') }}"
                    class="sb-sub-link {{ str_starts_with($route,'admin.settings') ? 'active' : '' }}">General &amp; Hero</a>
                 <a href="{{ route('admin.page-content.edit') }}"
-                   class="sb-sub-link {{ str_starts_with($route,'admin.page-content') ? 'active' : '' }}">Pages Content</a>
+                   class="sb-sub-link {{ str_starts_with($route,'admin.page-content') ? 'active' : '' }}">about Content</a>
                 {{-- <a href="{{ route('admin.homepage-carousel-images.index') }}"
                    class="sb-sub-link {{ str_starts_with($route,'admin.homepage-carousel') ? 'active' : '' }}">Hero Slides</a> --}}
                 <a href="{{ route('admin.counters.index') }}"
@@ -456,7 +456,7 @@
         @endcanany
 
         {{-- PRODUCTS --}}
-        @can('manage products')
+        {{-- @can('manage products')
             <button class="sb-group-toggle {{ $prodOpen ? 'open group-active' : '' }}"
                     onclick="toggleGroup('prodMenu', this)">
                 <span class="sg-left">
@@ -473,7 +473,7 @@
                 <a href="{{ route('admin.product-subcategories.index') }}"
                    class="sb-sub-link {{ str_starts_with($route,'admin.product-subcategories') ? 'active' : '' }}">Subcategories</a>
             </div>
-        @endcan
+        @endcan --}}
 
         {{-- MANAGEMENT --}}
         {{-- @canany(['manage users', 'manage roles', 'manage permissions'])

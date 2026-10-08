@@ -64,11 +64,11 @@
                         Industries
                     </a>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link enerix-nav-link {{ request()->routeIs('products.*') ? 'active' : '' }}" href="{{ route('products.index') }}">
                         Products
                     </a>
-                </li>
+                </li> --}}
                 <li class="nav-item">
                     <a class="nav-link enerix-nav-link {{ request()->routeIs('contact.*') ? 'active' : '' }}" href="{{ route('contact.index') }}">
                         Contact
