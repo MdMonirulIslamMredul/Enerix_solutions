@@ -29,4 +29,18 @@ class User extends Authenticatable
             'is_admin' => 'boolean',
         ];
     }
+
+    /**
+     * Determine if the user has administrative privileges.
+     */
+    public function isAdmin(): bool
+    {
+        if ($this->is_admin) {
+            return true;
+        }
+
+        $adminRoles = ['Super Admin', 'Admin', 'Branch Admin', 'Product Admin'];
+
+        return $this->hasRole($adminRoles) || $this->can('access admin panel');
+    }
 }
