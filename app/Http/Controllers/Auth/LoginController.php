@@ -27,10 +27,8 @@ class LoginController extends Controller
 
             $user = $request->user();
 
-            if ($user->is_admin) {
-                Auth::logout();
-
-                return back()->withErrors(['email' => 'This account is not a user account.'])->onlyInput('email');
+            if ($user?->isAdmin()) {
+                return redirect()->route('admin.dashboard')->with('success', 'Welcome back!');
             }
 
             return redirect()->route('dashboard')->with('success', 'Welcome back!');
