@@ -15,18 +15,7 @@ class EnsureAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (! $request->user()) {
-            abort(403, 'Unauthorized access.');
-        }
-
-        $user = $request->user();
-        $adminRoles = ['Super Admin', 'Admin', 'Branch Admin', 'Product Admin'];
-
-        if (
-            ! $user->is_admin &&
-            ! $user->hasRole($adminRoles) &&
-            ! $user->hasPermissionTo('access admin panel')
-        ) {
+        if (! $request->user()?->isAdmin()) {
             abort(403, 'Unauthorized access.');
         }
 
