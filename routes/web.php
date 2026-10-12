@@ -74,9 +74,9 @@ Route::post('/contact', [ContactController::class, 'store'])->name('contact.stor
 // Auth routes
 Route::middleware('guest')->group(function () {
     Route::get('/register', [RegisterController::class, 'show'])->name('register');
-    Route::post('/register', [RegisterController::class, 'store'])->name('register.submit');
-    Route::get('/login', [LoginController::class, 'show'])->name('login');
-    Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
+    // Route::post('/register', [RegisterController::class, 'store'])->name('register.submit');
+    // Route::get('/login', [LoginController::class, 'show'])->name('login');
+    // Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
 });
 
 Route::middleware('auth')->group(function () {

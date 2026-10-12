@@ -27,9 +27,8 @@ class AuthController extends Controller
             $request->session()->regenerate();
 
             $user = $request->user();
-            $adminRoles = ['Super Admin', 'Admin', 'Branch Admin', 'Product Admin'];
 
-            if (! $user?->is_admin && ! $user?->hasRole($adminRoles) && ! $user?->hasPermissionTo('access admin panel')) {
+            if (! $user?->isAdmin()) {
                 Auth::logout();
 
                 return back()->withErrors(['email' => 'This account is not an admin account.']);

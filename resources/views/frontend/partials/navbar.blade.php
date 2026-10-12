@@ -95,14 +95,14 @@
                             <i class="bi bi-person-circle me-1"></i> {{ auth()->user()->name }}
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0">
-                            @if (auth()->user()->is_admin)
+                            @if (auth()->user()->isAdmin())
                                 <li><a class="dropdown-item" href="{{ route('admin.dashboard') }}"><i class="bi bi-speedometer2 me-2"></i>Admin Dashboard</a></li>
                             @else
                                 <li><a class="dropdown-item" href="{{ route('dashboard') }}"><i class="bi bi-person me-2"></i>My Dashboard</a></li>
                             @endif
                             <li><hr class="dropdown-divider"></li>
                             <li>
-                                <form action="{{ auth()->user()->is_admin ? route('admin.logout') : route('logout') }}" method="POST" class="m-0">
+                                <form action="{{ auth()->user()->isAdmin() ? route('admin.logout') : route('logout') }}" method="POST" class="m-0">
                                     @csrf
                                     <button type="submit" class="dropdown-item text-danger"><i class="bi bi-box-arrow-right me-2"></i>Log Out</button>
                                 </form>
