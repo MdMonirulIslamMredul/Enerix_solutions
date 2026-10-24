@@ -137,6 +137,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('/about', [AdminAboutController::class, 'update'])->name('about.update')->middleware('permission:Web_Settings');
         Route::get('/settings', [SettingController::class, 'edit'])->name('settings.edit')->middleware('permission:Web_Settings');
         Route::post('/settings', [SettingController::class, 'update'])->name('settings.update')->middleware('permission:Web_Settings');
+        // Route to trigger manual storage synchronization from admin panel
+        Route::post('/settings/sync-storage', [SettingController::class, 'syncStorage'])->name('settings.sync-storage')->middleware('permission:Web_Settings');
 
         Route::resource('product-categories', AdminProductCategoryController::class)->except(['show'])->middleware('permission:manage products');
         Route::resource('product-subcategories', AdminProductSubcategoryController::class)->except(['show'])->middleware('permission:manage products');
@@ -153,3 +155,20 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::delete('/contacts/{contact}', [AdminContactController::class, 'destroy'])->name('contacts.destroy');
     });
 });
+
+// Fallback route to serve storage files on live servers where symlink is not created or supported
+Route::get('/storage/{path}', function (string $path) {
+    if (str_contains($path, '..')) {
+        abort(404);
+    }
+
+    $storagePath = storage_path('app/public/' . $path);
+    $realStorageDir = realpath(storage_path('app/public'));
+    $realPath = realpath($storagePath);
+
+    if (!$realPath || !$realStorageDir || !str_starts_with($realPath, $realStorageDir) || !is_file($realPath)) {
+        abort(404);
+    }
+
+    return response()->file($realPath);
+})->where('path', '.*');
