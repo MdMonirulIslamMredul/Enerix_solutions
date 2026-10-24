@@ -26,8 +26,30 @@
         </div>
     @endif
 
+    {{-- Validation Error Alerts --}}
+    @if ($errors->any())
+        <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
+            <h6 class="fw-bold mb-2"><i class="bi bi-exclamation-triangle-fill me-2"></i>Please fix the following errors:</h6>
+            <ul class="mb-0 ps-3">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    @endif
+
     <div class="card p-4 shadow-sm border-0">
-        <h4 class="mb-3 fw-bold">Enerix Website Settings</h4>
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+            <h4 class="mb-0 fw-bold">Enerix Website Settings</h4>
+            {{-- Quick Sync storage files to public directory (helpful for shared hosting without symlinks) --}}
+            <form method="POST" action="{{ route('admin.settings.sync-storage') }}" class="d-inline">
+                @csrf
+                <button type="submit" class="btn btn-sm btn-outline-secondary" title="Sync all uploaded storage images directly to public directory (fixes missing files on live server)">
+                    <i class="bi bi-arrow-repeat me-1"></i> Sync Storage to Public
+                </button>
+            </form>
+        </div>
         <form method="POST" action="{{ route('admin.settings.update') }}" enctype="multipart/form-data">
             @csrf
 
@@ -100,41 +122,53 @@
                         <div class="col-md-6 col-lg-3">
                             <label class="form-label small fw-semibold">1. Main Panel (Engineer + Solar)</label>
                             @if($setting->hero_image_main)
-                                <img src="{{ asset('storage/' . $setting->hero_image_main) }}" class="rounded w-100 mb-2 border" style="height: 110px; object-fit: cover;">
+                                <img src="{{ asset('storage/' . $setting->hero_image_main) }}" class="rounded w-100 mb-2 border" style="height: 110px; object-fit: cover;" onerror="this.onerror=null; this.src='{{ asset('images/enerix/hero_main.jpg') }}';">
                             @else
                                 <img src="{{ asset('images/enerix/hero_main.jpg') }}" class="rounded w-100 mb-2 border" style="height: 110px; object-fit: cover;">
                             @endif
-                            <input type="file" name="hero_image_main" class="form-control form-control-sm" accept="image/*">
+                            <input type="file" name="hero_image_main" class="form-control form-control-sm @error('hero_image_main') is-invalid @enderror" accept="image/*">
+                            @error('hero_image_main')
+                                <div class="invalid-feedback small">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="col-md-6 col-lg-3">
                             <label class="form-label small fw-semibold">2. Top Right (Civil Construction)</label>
                             @if($setting->hero_image_top)
-                                <img src="{{ asset('storage/' . $setting->hero_image_top) }}" class="rounded w-100 mb-2 border" style="height: 110px; object-fit: cover;">
+                                <img src="{{ asset('storage/' . $setting->hero_image_top) }}" class="rounded w-100 mb-2 border" style="height: 110px; object-fit: cover;" onerror="this.onerror=null; this.src='{{ asset('images/enerix/hero_top.jpg') }}';">
                             @else
                                 <img src="{{ asset('images/enerix/hero_top.jpg') }}" class="rounded w-100 mb-2 border" style="height: 110px; object-fit: cover;">
                             @endif
-                            <input type="file" name="hero_image_top" class="form-control form-control-sm" accept="image/*">
+                            <input type="file" name="hero_image_top" class="form-control form-control-sm @error('hero_image_top') is-invalid @enderror" accept="image/*">
+                            @error('hero_image_top')
+                                <div class="invalid-feedback small">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="col-md-6 col-lg-3">
                             <label class="form-label small fw-semibold">3. Mid Right (Datacenter / IT)</label>
                             @if($setting->hero_image_mid)
-                                <img src="{{ asset('storage/' . $setting->hero_image_mid) }}" class="rounded w-100 mb-2 border" style="height: 110px; object-fit: cover;">
+                                <img src="{{ asset('storage/' . $setting->hero_image_mid) }}" class="rounded w-100 mb-2 border" style="height: 110px; object-fit: cover;" onerror="this.onerror=null; this.src='{{ asset('images/enerix/hero_mid.jpg') }}';">
                             @else
                                 <img src="{{ asset('images/enerix/hero_mid.jpg') }}" class="rounded w-100 mb-2 border" style="height: 110px; object-fit: cover;">
                             @endif
-                            <input type="file" name="hero_image_mid" class="form-control form-control-sm" accept="image/*">
+                            <input type="file" name="hero_image_mid" class="form-control form-control-sm @error('hero_image_mid') is-invalid @enderror" accept="image/*">
+                            @error('hero_image_mid')
+                                <div class="invalid-feedback small">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="col-md-6 col-lg-3">
                             <label class="form-label small fw-semibold">4. Bottom Right (CCTV Security)</label>
                             @if($setting->hero_image_bot)
-                                <img src="{{ asset('storage/' . $setting->hero_image_bot) }}" class="rounded w-100 mb-2 border" style="height: 110px; object-fit: cover;">
+                                <img src="{{ asset('storage/' . $setting->hero_image_bot) }}" class="rounded w-100 mb-2 border" style="height: 110px; object-fit: cover;" onerror="this.onerror=null; this.src='{{ asset('images/enerix/hero_bot.jpg') }}';">
                             @else
                                 <img src="{{ asset('images/enerix/hero_bot.jpg') }}" class="rounded w-100 mb-2 border" style="height: 110px; object-fit: cover;">
                             @endif
-                            <input type="file" name="hero_image_bot" class="form-control form-control-sm" accept="image/*">
+                            <input type="file" name="hero_image_bot" class="form-control form-control-sm @error('hero_image_bot') is-invalid @enderror" accept="image/*">
+                            @error('hero_image_bot')
+                                <div class="invalid-feedback small">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
                 </div>
@@ -202,27 +236,35 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label class="form-label fw-semibold">Logo (SVG or PNG)</label>
+                            <label class="form-label fw-semibold">Logo (SVG, PNG, JPG, WebP)</label>
                             <div class="p-3 bg-light border rounded mb-2 d-flex align-items-center">
                                 @if($setting->logo_path)
-                                    <img src="{{ asset('storage/' . $setting->logo_path) }}" alt="Logo" style="max-height: 50px;">
+                                    <img src="{{ asset('storage/' . $setting->logo_path) }}" alt="Logo" style="max-height: 50px;" onerror="this.onerror=null; this.src='{{ asset('images/enerix/logo.svg') }}';">
                                 @else
                                     <img src="{{ asset('images/enerix/logo.svg') }}" alt="Logo" style="max-height: 50px;">
                                 @endif
                             </div>
-                            <input type="file" class="form-control" name="logo" accept="image/*">
+                            <input type="file" class="form-control @error('logo') is-invalid @enderror" name="logo" accept="image/*,.svg">
+                            @error('logo')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                            <div class="form-text small text-muted">Supports SVG, PNG, JPG, WebP up to 4MB.</div>
                         </div>
 
                         <div class="col-md-6">
                             <label class="form-label fw-semibold">Favicon</label>
                             <div class="p-3 bg-light border rounded mb-2 d-flex align-items-center">
                                 @if($setting->favicon_path)
-                                    <img src="{{ asset('storage/' . $setting->favicon_path) }}" alt="Favicon" style="max-height: 36px;">
+                                    <img src="{{ asset('storage/' . $setting->favicon_path) }}" alt="Favicon" style="max-height: 36px;" onerror="this.onerror=null; this.style.display='none';">
                                 @else
                                     <span class="text-muted small">Default favicon</span>
                                 @endif
                             </div>
-                            <input type="file" class="form-control" name="favicon" accept="image/*,.ico">
+                            <input type="file" class="form-control @error('favicon') is-invalid @enderror" name="favicon" accept="image/*,.ico,.svg">
+                            @error('favicon')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                            <div class="form-text small text-muted">Supports ICO, PNG, SVG up to 2MB.</div>
                         </div>
                     </div>
                 </div>
