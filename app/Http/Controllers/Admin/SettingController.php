@@ -4,13 +4,16 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Setting;
+use App\Traits\HandlesImageUploads;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class SettingController extends Controller
 {
+    // Trait providing uploadImage, deleteImage, and syncStorageFiles for reliable asset storage across local and live hosts
+    use HandlesImageUploads;
+
     public function edit(): View
     {
         return view('admin.settings.edit', [
@@ -55,38 +58,32 @@ class SettingController extends Controller
             'facebook_url' => ['nullable', 'url', 'max:255'],
             'linkedin_url' => ['nullable', 'url', 'max:255'],
             'youtube_url' => ['nullable', 'url', 'max:255'],
-            'logo' => ['nullable', 'image', 'max:4096'],
-            'favicon' => ['nullable', 'image', 'max:1024'],
+            'logo' => ['nullable', 'file', 'mimes:jpeg,png,jpg,gif,svg,webp', 'max:4096'],
+            'favicon' => ['nullable', 'file', 'mimes:jpeg,png,jpg,gif,svg,webp,ico', 'max:2048'],
 
             // Hero collage images
-            'hero_image_main' => ['nullable', 'image', 'max:6144'],
-            'hero_image_top' => ['nullable', 'image', 'max:4096'],
-            'hero_image_mid' => ['nullable', 'image', 'max:4096'],
-            'hero_image_bot' => ['nullable', 'image', 'max:4096'],
+            'hero_image_main' => ['nullable', 'file', 'mimes:jpeg,png,jpg,gif,svg,webp', 'max:6144'],
+            'hero_image_top' => ['nullable', 'file', 'mimes:jpeg,png,jpg,gif,svg,webp', 'max:4096'],
+            'hero_image_mid' => ['nullable', 'file', 'mimes:jpeg,png,jpg,gif,svg,webp', 'max:4096'],
+            'hero_image_bot' => ['nullable', 'file', 'mimes:jpeg,png,jpg,gif,svg,webp', 'max:4096'],
         ]);
 
         $setting = Setting::firstOrCreate([]);
 
         if ($request->hasFile('logo')) {
-            if ($setting->logo_path) {
-                Storage::disk('public')->delete($setting->logo_path);
-            }
-            $data['logo_path'] = $request->file('logo')->store('settings', 'public');
+            $this->deleteImage($setting->logo_path);
+            $data['logo_path'] = $this->uploadImage($request->file('logo'), 'settings');
         }
 
         if ($request->hasFile('favicon')) {
-            if ($setting->favicon_path) {
-                Storage::disk('public')->delete($setting->favicon_path);
-            }
-            $data['favicon_path'] = $request->file('favicon')->store('settings', 'public');
+            $this->deleteImage($setting->favicon_path);
+            $data['favicon_path'] = $this->uploadImage($request->file('favicon'), 'settings');
         }
 
         foreach (['hero_image_main', 'hero_image_top', 'hero_image_mid', 'hero_image_bot'] as $heroImgKey) {
             if ($request->hasFile($heroImgKey)) {
-                if ($setting->{$heroImgKey}) {
-                    Storage::disk('public')->delete($setting->{$heroImgKey});
-                }
-                $data[$heroImgKey] = $request->file($heroImgKey)->store('settings', 'public');
+                $this->deleteImage($setting->{$heroImgKey});
+                $data[$heroImgKey] = $this->uploadImage($request->file($heroImgKey), 'settings');
             }
         }
 
@@ -107,6 +104,16 @@ class SettingController extends Controller
         $setting->update($data);
 
         return back()->with('success', 'Settings updated successfully.');
+    }
+
+    /**
+     * Manually synchronize uploaded storage assets into public directories for live/shared hosting.
+     */
+    public function syncStorage(): RedirectResponse
+    {
+        $count = $this->syncStorageFiles();
+
+        return back()->with('success', "Storage files synchronized successfully ({$count} files copied to public directory).");
     }
 
     private function normalizeColor(?string $value, string $default): string
