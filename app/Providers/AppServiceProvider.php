@@ -24,7 +24,19 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Paginator::useBootstrapFive();
-        View::share('settings', Setting::first());
+
+        // Share site settings globally across all views with request-level static caching and graceful DB failure handling
+        View::composer('*', function ($view) {
+            static $settings = null;
+            if ($settings === null) {
+                try {
+                    $settings = Setting::first();
+                } catch (\Throwable $e) {
+                    $settings = null;
+                }
+            }
+            $view->with('settings', $settings);
+        });
 
         View::composer('frontend.partials.footer', function ($view) {
             $view->with('footerSolutions', Service::where('status', true)
